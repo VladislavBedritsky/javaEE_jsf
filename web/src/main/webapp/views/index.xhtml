@@ -1,0 +1,62 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        template="template.xhtml">
+    <ui:param name="pageTitle" value="Employees"/>
+    <ui:define name="content">
+
+        <p>Employees</p>
+
+        <h:messages globalOnly="true"/>
+
+        <h:form>
+            <h:panelGrid columns="3">
+                <h:outputLabel for="hiredAfter" value="Hired After:"/>
+                <h:inputText id="hiredAfter" value="#{searchForm.hiredAfter}"
+                             converterMessage="Please enter a valid date. For example 15/4/2015.">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </h:inputText>
+                <h:message for="hiredAfter"/>
+                <h:commandButton value="Submit"/>
+                <h:link value="New..." outcome="employee"/>
+            </h:panelGrid>
+        </h:form>
+
+        <h:form id="empForm">
+            <h:dataTable value="#{employees}" var="emp" styleClass="empl_table">
+                <h:column>
+                    <f:facet name="header">Employee №</f:facet>
+                    <h:link value="#{emp.employeeNo}" outcome="employee">
+                        <f:param name="empid" value="#{emp.employeeNo}"/>
+                    </h:link>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">First name</f:facet>
+                    #{emp.firstName}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Last name</f:facet>
+                    #{emp.lastName}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Date of birth</f:facet>
+                    <h:outputText value="#{emp.dateOfBirth}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Hire date</f:facet>
+                    <h:outputText value="#{emp.hireDate}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:commandLink action="#{employeeController.remove(emp)}" value="Delete"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

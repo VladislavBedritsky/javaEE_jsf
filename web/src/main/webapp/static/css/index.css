@@ -1,0 +1,8 @@
+.empl_table {
+    border-collapse: collapse;
+}
+
+.empl_table td, .empl_table th {
+    padding: 4px;
+    border: 1px solid #CCC;
+}

@@ -1,0 +1,12 @@
+version: "3.3"
+services:
+
+  web:
+    build:
+      context: ./web/
+      dockerfile: Dockerfile
+    image: web
+    ports:
+      - 8080:8080
+    container_name: web
+    restart: on-failure
